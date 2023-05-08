@@ -60,7 +60,7 @@ app.use((req, res, next) => {
 
 // Root Page
 app.get("/", (req, res, next) => {
-  res.status(200).json({ message: "Welcome to Ambition" });
+  res.status(200).json({ message: "Welcome to Ambition Project" });
 });
 
 // // Routes
