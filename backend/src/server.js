@@ -2,7 +2,7 @@ const express = require("express");
 const colors = require("colors");
 require("dotenv").config();
 // const { errorHandler } = require("./middlewares/errorMiddleware");
-// const connectDB = require("./config/db");
+const connectDB = require("./app/models");
 
 // const cloudinaryHelper = require("./utility/cloudinaryHelper")
 // const cloudinary = require("cloudinary").v2;
@@ -17,7 +17,11 @@ require("dotenv").config();
  * Connect PostgreSQL
  * =============================================================================
  */
-// connectDB();
+connectDB();
+db.sequelize.sync();
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 /**
  * =============================================================================
