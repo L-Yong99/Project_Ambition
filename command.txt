@@ -1,6 +1,102 @@
+NODE JS EXPRESS & POSTGRESQL with SEQUELIZE
+
+
 // Main
+npm init
+npm install dotenv concurrently
+npm install -D nodemon
+npm install cloudinary(UNSURE)
+
+Create React App
+npx create-react-app frontend --template redux
 
 
 // Backend
+npm init
+npm install express sequelize pg pg-hstore cors --save
+npm install colors bcryptjs express-async-handler jsonwebtoken
+npm install --save multer
+(May need) npm install --save-dev sequelize-cli
+
 
 // Frontend
+npm init
+npm install react-router-dom react-toastify axios react-icons classnames prop-types
+npm i react-spinners
+npm install react-transition-group@1.x --save
+npm install uuid
+npm i react-uuid
+npm i @editorjs/editorjs --save
+npm i @editorjs/header --save
+npm i --save @editorjs/list
+npm i --save @editorjs/link
+npm i --save @editorjs/raw
+npm i --save @editorjs/simple-image
+npm i --save @editorjs/image
+npm i --save @editorjs/checklist
+npm i tailwind-scrollbar-hide
+
+
+npm i @calumk/editorjs-codeflask
+npm i --save @editorjs/embed
+npm i --save @editorjs/quote
+npm i --save @editorjs/nested-list
+npm i --save @editorjs/delimiter
+npm i --save editorjs-header-with-alignment
+
+npm install @editorjs/attaches
+npm i --save @rodrigoodhin/editorjs-image-gallery
+
+npm i --save-dev @editorjs/code
+npm i @calumk/editorjs-codeflask
+
+npm i --save-dev @editorjs/marker
+npm i --save @editorjs/underline
+$ npm i --save editorjs-tooltip
+npm i --save editorjs-change-case
+npm i --save editorjs-text-color-plugin
+
+
+npm i --save-dev editorjs-drag-drop
+
+
+-Block Tune
+npm i --save editorjs-text-alignment-blocktune
+
+-React
+npm install --save @stfy/react-editor.js
+npm install --save react-editor-js
+
+-React Parser
+npm install html-react-parser --save
+npm install editorjs-html
+
+-To move to different section in page
+npm install --save react-router-hash-link
+
+-Detect intersection and entry of section to viewport
+npm install react-intersection-observer --save
+
+npm install date-fns
+
+
+// ENV
+DOTENV npm install in MAIN
+Env file should be in MAIN(ROOT) folder
+Use console.log(require('dotenv').config()) to check directory issue
+
+
+// POSTGRESQL SETUP
+1. create db.js in CONFIG folder with necessary details
+2. Sequelize models for DB in index.js under MODEL folder
+3. setup db with server.js
+4. (If linking fail proceed with step 5)
+
+5. SET NEW PASSWORD FOR POSTGRES USER:
+sudo -u postgres psql postgres
+\password postgres
+Enter new password:
+
+6. Log into POSTGRE in terminal:
+sudo su postgres
+psql template1 (template1 is default db name for postgres)
