@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/L-Yong99/Project_Ambition#readme",
   "dependencies": {
-    "concurrently": "^8.0.1"
+    "concurrently": "^8.0.1",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

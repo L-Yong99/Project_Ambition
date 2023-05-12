@@ -1,8 +1,9 @@
+require("dotenv").config();
+// console.log(require('dotenv').config())
 const express = require("express");
 const colors = require("colors");
-require("dotenv").config();
-// const { errorHandler } = require("./middlewares/errorMiddleware");
-const connectDB = require("./app/models");
+const { errorHandler } = require("./middlewares/errorMiddleware");
+const db = require("./models");
 
 // const cloudinaryHelper = require("./utility/cloudinaryHelper")
 // const cloudinary = require("cloudinary").v2;
@@ -17,11 +18,19 @@ const connectDB = require("./app/models");
  * Connect PostgreSQL
  * =============================================================================
  */
-connectDB();
-db.sequelize.sync();
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// connectDB();
+
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 /**
  * =============================================================================
@@ -68,7 +77,8 @@ app.get("/", (req, res, next) => {
 });
 
 // // Routes
-// app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+
 // app.use("/api/classes", require("./routes/classRoutes"));
 // // app.use("/api/classes", require("./routes/lessonRoutes"));
 
@@ -89,14 +99,14 @@ app.get("/", (req, res, next) => {
  * Final stage Error Middleware Handling
  * =============================================================================
  */
-// app.use(errorHandler);
+app.use(errorHandler);
 //
 /**
  * =============================================================================
  * Listen to port and run server
  * =============================================================================
  */
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
