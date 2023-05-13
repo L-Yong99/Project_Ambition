@@ -9,34 +9,37 @@ const Op = db.Sequelize.Op;
 // Create and Save a new user (Signup)
 exports.create = asyncHandler(async (req, res) => {
   await User.signUp(req, res);
+});
 
+// login if user exist
+exports.login = asyncHandler(async (req, res) => {
+  await User.login(req, res);
 });
 
 
 // Retrieve all users from the database.
 exports.findAll = asyncHandler(async (req, res) => {
-  // Show all users
   User.findAll().then((data) => {
     res.json(data);
   });
 });
 
 
-// Find a single user with an id
-exports.findOne = (req, res) => {
+// // Find a single user with an id
+// exports.findOne = (req, res) => {
 
-};
+// };
 
-// Update a user by the id in the request
-exports.update = (req, res) => {
+// // Update a user by the id in the request
+// exports.update = (req, res) => {
 
-};
+// };
 
 // Delete a user with the specified id in the request
 exports.delete = (req, res) => {
-  // const { id } = req.body;
+  const { _id } = req.body;
 
-  User.destroy({ where: { id: 63 } }).then(() => {
+  User.destroy({ where: { id: _id } }).then(() => {
     res.status(200).send('Removed Successfully');
    }).catch((err) => {
     console.log(err);
@@ -45,10 +48,10 @@ exports.delete = (req, res) => {
 
 };
 
-// Delete all users from the database.
-exports.deleteAll = (req, res) => {
+// // Delete all users from the database.
+// exports.deleteAll = (req, res) => {
 
-};
+// };
 
 // // Find all published users
 // exports.findAllPublished = (req, res) => {

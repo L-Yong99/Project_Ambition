@@ -21,7 +21,13 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  // // Class methods
+  /**
+   * =============================================================================
+   * CLASS METHODS
+   * =============================================================================
+   */
+
+  // Sign Up function
   User.signUp = async function(req, res) {
     const {email, password, first_name} = req.body;
 
@@ -67,13 +73,60 @@ module.exports = (sequelize, Sequelize) => {
         message: "Invalid user data!"
       });
     }
-
   };
 
+  // Login function
+  User.login = async function(req, res) {
+    const { email, password } = req.body;
 
-  // Instance Method
+    console.log("Login in");
+
+    // Validation
+    if (!email || !password) {
+      res.status(400).send({
+        message: "Please include all fields!"
+      });
+      return;
+    }
+
+    // Find if user already exists
+    const user = await User.findOne({ where: { email: email } });
+
+    console.log(user);
+
+    if (!user) {
+      res.status(400).send({
+        message: "No such user. Please create an account"
+      });
+      return;
+    }
+
+    const passwordIsValid = await bcrypt.compare(password, user.password);
+
+    if (passwordIsValid) {
+      res.status(201).json({
+        _id: user._id,
+        email: user.email,
+        first_name: user.first_name,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400).send({
+        message: "Incorrect credentials. Try again"
+      });
+      return;
+    }
+  };
+
+  /**
+   * =============================================================================
+   * INSTANCE METHOD
+   * =============================================================================
+   */
+
   // Model.prototype.myCustomSetter = function (param, param2) {  }
 
+  // Generate Token
   const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: "30d",
