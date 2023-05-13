@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
 
   // // Class methods
   User.signUp = async function(req, res) {
-    const {email, password, first_name} = req.body
+    const {email, password, first_name} = req.body;
 
     // Validations
     if (!email || !password || !first_name ) {
@@ -33,10 +33,8 @@ module.exports = (sequelize, Sequelize) => {
       return;
     }
 
-    // console.log("FOR CHECK LOL", JWT_SECRET)
-
     // Check if user already exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ where: { email: email } });
 
     if (userExists) {
       console.log("User already exist!");

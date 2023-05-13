@@ -34,7 +34,9 @@ exports.update = (req, res) => {
 
 // Delete a user with the specified id in the request
 exports.delete = (req, res) => {
-  User.destroy({ where: { id: 56 } }).then(() => {
+  // const { id } = req.body;
+
+  User.destroy({ where: { id: 63 } }).then(() => {
     res.status(200).send('Removed Successfully');
    }).catch((err) => {
     console.log(err);
