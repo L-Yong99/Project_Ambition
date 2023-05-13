@@ -8,7 +8,7 @@ const userController = require("../controllers/userController");
 router.post("/signup", userController.create);
 
 // // User login route
-// router.post("/login", userController.loginUser);
+router.post("/login", userController.login);
 
 // // Update user profile
 // router.post("/update", protect,uploadImage.single('avatar'), userController.updateUser);
@@ -16,6 +16,6 @@ router.post("/signup", userController.create);
 // Get all users
 router.get("/all", userController.findAll);
 
-router.delete("/del", userController.delete);
+router.delete("/delete", userController.delete);
 
 module.exports = router;
