@@ -23,6 +23,23 @@ module.exports = (sequelize, Sequelize) => {
 
   /**
    * =============================================================================
+   * ASSOCIATIONS
+   * =============================================================================
+   */
+
+  /**
+   * onDelete cascade will delete all related association when
+     parents is deleted
+   */
+
+  User.associate = models => {
+    User.hasMany(models.MajorGoal, {
+      onDelete: "cascade"
+    });
+  };
+
+  /**
+   * =============================================================================
    * CLASS METHODS
    * =============================================================================
    */

@@ -1,5 +1,7 @@
 NODE JS EXPRESS & POSTGRESQL with SEQUELIZE
 
+npx kill-port 8080
+
 
 // Main
 npm init
@@ -100,3 +102,12 @@ Enter new password:
 6. Log into POSTGRE in terminal:
 sudo su postgres
 psql template1 (template1 is default db name for postgres)
+
+
+// CHECK DATABASE (TERMINAL)
+
+psql (user)
+\l - to see all databases for user
+\c - database_name - to go into specific database
+\dt - to list all tables
+\d+ table_name - to see specific table columns
