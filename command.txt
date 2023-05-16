@@ -1,6 +1,6 @@
 NODE JS EXPRESS & POSTGRESQL with SEQUELIZE
 
-npx kill-port 8080
+npx kill-port 8000
 
 
 // Main
