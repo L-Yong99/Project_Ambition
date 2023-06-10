@@ -28,9 +28,13 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+// db.sequelize.sync({ force: true })
+//   .then(() => {
+//     console.log("dropped db and synced.");
+//   })
+//   .catch((err) => {
+//     console.log("Failed to drop n sync db: " + err.message);
+//   });
 
 /**
  * =============================================================================
@@ -78,6 +82,9 @@ app.get("/", (req, res, next) => {
 
 // // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+
+app.use("/api/majorGoals", require("./routes/majorGoalRoutes"));
+
 
 // app.use("/api/classes", require("./routes/classRoutes"));
 // // app.use("/api/classes", require("./routes/lessonRoutes"));
