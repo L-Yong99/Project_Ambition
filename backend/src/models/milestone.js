@@ -1,13 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const MajorGoal = sequelize.define("majorGoal", {
-    header: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: "header is required" },
-      },
-      // This will require the header be present
-    },
+  const Milestone = sequelize.define("milestone", {
     title: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -15,21 +7,22 @@ module.exports = (sequelize, Sequelize) => {
         notNull: { msg: "title is required" },
       },
     },
-    sub_header: {
-      type: Sequelize.STRING,
-    },
-    sub_value: {
-      type: Sequelize.STRING,
+    description: {
+      type: Sequelize.TEXT,
     },
     status: {
       type: Sequelize.ENUM,
-      values: ['Ongoing', 'Completed'],
+      values: ['Ongoing', 'Done'],
       defaultValue: 'Ongoing',
       allowNull: false,
       validate: {
         notNull: { msg: "phase is required" },
       },
-    }
+    },
+    isActive: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   });
 
    /**
@@ -38,15 +31,11 @@ module.exports = (sequelize, Sequelize) => {
    * =============================================================================
    */
 
-   MajorGoal.associate = models => {
-    MajorGoal.belongsTo(models.User, {
+   Milestone.associate = models => {
+    Milestone.belongsTo(models.MajorGoal, {
       foreignKey: {
         allowNull: false
       }
-    });
-
-    MajorGoal.hasMany(models.Milestone, {
-      onDelete: "cascade"
     });
   };
 
@@ -57,9 +46,9 @@ module.exports = (sequelize, Sequelize) => {
    * =============================================================================
    */
 
-  // Create goal
-  MajorGoal.create = async function(req, res) {
-    const {header, title, sub_header, sub_value, status} = req.body;
+  // Create milestone
+  Milestone.create = async function(req, res) {
+    const {title, description} = req.body;
 
     // const user = await User.findById(req.user.id);
 
@@ -69,26 +58,21 @@ module.exports = (sequelize, Sequelize) => {
     // }
 
     // Validations
-    if (!header || !title ) {
+    if (!title) {
       res.status(400).send({
         message: "Please include required fields!"
       });
       return;
     };
 
-    // Create majorGoal
-
-    // can use .build .save or
-    // can use .create instead
-
-    let newMajorGoal;
+    // create new milestone
+    let newMilestone;
     try {
-      newMajorGoal = await MajorGoal.build({
-        header,
+      newMilestone = await Milestone.build({
         title,
-        sub_header,
-        sub_value,
-        status
+        description,
+        status,
+        isActive,
       });
     } catch (error) {
       res.status(400).send({
@@ -96,23 +80,22 @@ module.exports = (sequelize, Sequelize) => {
       });
     }
 
-    // Add major goal to db
+    // Add milestone to db
     try {
-      await newMajorGoal.save();
+      await newMilestone.save();
     } catch (error) {
       res.status(400).send({
         message: "fail to save majorGoal!"
       });
     }
 
-    if (newMajorGoal) {
+    if (newMilestone) {
       res.status(201).json({
-        _id: newMajorGoal._id,
-        header: newMajorGoal.header,
-        title: newMajorGoal.title,
-        sub_header: newMajorGoal.sub_header,
-        sub_value: newMajorGoal.sub_value,
-        status: newMajorGoal.status
+        _id: newMilestone._id,
+        title: newMilestone.title,
+        description: newMilestone.description,
+        status: newMilestone.status,
+        isActive: newMilestone.isActive
       });
     } else {
       res.status(400).send({
@@ -122,5 +105,5 @@ module.exports = (sequelize, Sequelize) => {
 
   };
 
-  return MajorGoal;
+  return Milestone;
 };
